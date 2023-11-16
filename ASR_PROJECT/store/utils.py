@@ -22,7 +22,7 @@ def crear_ladrillos():
 
 def leer_inventario():
     existencias = {}
-    with open('store/Inventario diario noviembre 2023 al 15.csv', 'r') as inventario:
+    with open('store/Inventario_diario_noviembre 2023_al_15.csv', 'r') as inventario:
         lector = csv.reader(inventario)
         for _ in range(46):
             next(lector)
