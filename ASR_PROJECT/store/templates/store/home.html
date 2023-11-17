@@ -26,6 +26,7 @@
                             <input type="number" id="{{ producto.id }}_cantidad" name="{{ producto.id }}_cantidad" class="form-control" value="0" min="0">
                         </div>
                     </form>
+                    <a href="{% url 'add_to_cart' producto.id %}" class="btn btn-outline-danger btn-sm">Añadir</a>
                 </div>
             </div>
         </div>

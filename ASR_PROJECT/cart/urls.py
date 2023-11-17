@@ -22,4 +22,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('home_cart', cartViews.home_cart, name='home_cart'),
+    path("add_to_cart/<int:producto_id>/", cartViews.add_to_cart, name="add_to_cart"),
+    path("remove_from_cart/<int:cart_item_id>/", cartViews.remove_from_cart, name="remove_from_cart"),
+    path("cart_detail", cartViews.cart_detail, name="cart_detail"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

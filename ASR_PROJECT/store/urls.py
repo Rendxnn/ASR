@@ -22,4 +22,5 @@ from django.conf import settings
 
 urlpatterns = [
     path('', storeViews.home, name='home'),
+    #path('home', storeViews.product_detail, name='product_detail')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
