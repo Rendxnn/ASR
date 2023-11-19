@@ -5,18 +5,20 @@ from django.contrib import messages
 from cart.models import Cart
 from store.models import Ladrillo
 
+
 def home_cart(request):
-    return render(request, 'cart/home_cart.html', {})
+    cart_items = Cart.objects.all()
+    return render(request, 'cart/home_cart.html', {'cart_items': cart_items})
 
 
 def add_to_cart(request, producto_id):
-    cart_item = Cart.objects.filter(pk = producto_id).first()
+    cart_item = Cart.objects.filter(pk=producto_id).first()
     if cart_item:
         cart_item.quantity += 1
         cart_item.save()
         messages.success(request, "Item added to your cart.")
     else:
-        instance = Ladrillo.objects.get(pk = producto_id)
+        instance = Ladrillo.objects.get(pk=producto_id)
         Cart.objects.create(product=instance)
         messages.success(request, "Item added to your cart.")
 

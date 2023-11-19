@@ -1,41 +1,42 @@
 {% extends "store/base.html" %}
 {% block content %}
 
-    {% if cart_items %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Descripcion</th>
-                    <th>Total Price</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                    <tr>
-                        <td>{{ item.product }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.product.precio }}</td>
-                        <td>{{ item.product.descripcion }}</td>
-                       
-                        <td><a href="{% url 'remove_from_cart' item.id %}">Remove</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3"></td>
-                    <td>Total:</td>
-                    <td>{{ total_price }}</td>
-                </tr>
-            </tfoot>
-        </table>
+{% if cart_items %}
+<div class="container">
+    <table class="table table-striped table-light">
+        <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Precio total</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.product }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.product.precio }}</td>
+            <td>{{ item.product.descripcion }}</td>
 
-        <a href="" class="btn btn-primary">Checkout</a>
-    {% else %}
-        <p>Your shopping cart is empty.</p>
-    {% endif %}
+            <td><a href="{% url 'remove_from_cart' item.id %}">Remove</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td>Total:</td>
+            <td>{{ total_price }}</td>
+        </tr>
+        </tfoot>
+    </table>
+    <a href="" class="btn btn-primary">Checkout</a>
+</div>
+{% else %}
+<p>Your shopping cart is empty.</p>
+{% endif %}
 {% endblock %}

@@ -2,41 +2,42 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="my-4">¡Bienvenido a Alfarería Santa Rita!</h1>
+    <h1 class="my-4">¡Bienvenido a Alfarera Santa Rita!</h1>
     <hr>
     <h3>Productos disponibles:</h3>
     <br>
-    <div class="row">
-        {% for producto in ladrillos %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="https://colgres.com.co/wp-content/uploads/2022/08/ladrillo-multiperforado-4.png" class="card-img-top" alt="{{ producto.nombre }}" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ producto.nombre }}</h5>
-                    <p class="card-text">{{ producto.descripcion }}</p>
-                    <p class="card-text"><strong>Precio:</strong> ${{ producto.precio }}</p>
-                    {% for referencia, cantidad in existencias.items %}
-                    {% if referencia == producto.nombre %}
-                    <p class="card-text"><strong>Existencias:</strong>{{ cantidad }}</p>
-                    {% endif %}
-                    {% endfor %}
-                    <form method="post" action="">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            {% for producto in ladrillos %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="https://colgres.com.co/wp-content/uploads/2022/08/ladrillo-multiperforado-4.png"
+                         class="card-img-top" alt="{{ producto.nombre }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio:</strong> ${{ producto.precio }}</p>
+                        {% for referencia, cantidad in existencias.items %}
+                        {% if referencia == producto.nombre %}
+                        <p class="card-text"><strong>Existencias:</strong>{{ cantidad }}</p>
+                        {% endif %}
+                        {% endfor %}
                         <div class="form-group">
                             <label for="{{ producto.id }}_cantidad">Cantidad:</label>
-                            <input type="number" id="{{ producto.id }}_cantidad" name="{{ producto.id }}_cantidad" class="form-control" value="0" min="0">
+                            <input type="number" id="{{ producto.id }}_cantidad" name="{{ producto.id }}_cantidad"
+                                   class="form-control" value="0" min="0">
                         </div>
-                    </form>
-                    <a href="{% url 'add_to_cart' producto.id %}" class="btn btn-outline-danger btn-sm">Añadir</a>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    <div class="text-center">
-        <button type="button" class="btn btn-primary" id="generarPedidoBtn">Generar Pedido</button>
-    </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary" name="generar_pedido">Generar Pedido</button>
+        </div>
+    </form>
 </div>
 <br>
-
 
 {% endblock %}
