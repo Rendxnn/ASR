@@ -7,6 +7,8 @@ from cart.models import Cart
 
 
 def home(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts/login')
     ladrillos = Ladrillo.objects.all()
     if len(ladrillos) == 0:
         utils.crear_ladrillos()
@@ -15,7 +17,7 @@ def home(request):
         for ladrillo in ladrillos:
             cantidad_ladrillo = int(request.POST[f'{ladrillo.id}_cantidad'])
             if cantidad_ladrillo > 0:
-                nuevo_cart = Cart(product=ladrillo, quantity=cantidad_ladrillo)
+                nuevo_cart = Cart(product=ladrillo, quantity=cantidad_ladrillo, user=request.user)
                 nuevo_cart.save()
         return redirect('cart/home_cart')
     return render(request, 'store/home.html', {'ladrillos': ladrillos, 'existencias': existencias})

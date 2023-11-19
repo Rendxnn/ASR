@@ -7,8 +7,11 @@ from store.models import Ladrillo
 
 
 def home_cart(request):
-    cart_items = Cart.objects.all()
-    return render(request, 'cart/home_cart.html', {'cart_items': cart_items})
+    if not request.user.is_authenticated:
+        return redirect('home')
+    cart_items = Cart.objects.all().filter(user=request.user)
+    total_price = sum(pedido.product.precio for pedido in cart_items)
+    return render(request, 'cart/home_cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
 
 def add_to_cart(request, producto_id):
