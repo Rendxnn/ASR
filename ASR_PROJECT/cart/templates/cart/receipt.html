@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura</title>
+</head>
+<body>
+<div class="container">
+    <h3>Alfarera Santa Rita</h3>
+    <h5>NIT: </h5>
+    <H5>Fecha {{ fecha }}</H5>
+    <hr>
+    <h2>Productos:</h2>
+    <hr>
+    <table style="table-layout:fixed">
+        <tr>
+            <td><b>Nombre</b></td>
+            <td><b>Cantidad</b></td>
+            <td><b>Precio</b></td>
+        </tr>
+        {% for orden in cart_items %}
+
+        <tr>
+            <td>{{ orden.product.nombre }}</td>
+            <td>{{ orden.quantity }}</td>
+            <td>{{ orden.product.precio }}</td>
+        </tr>
+
+        {% endfor %}
+        <tr>
+            <td><b>Total</b></td>
+            <td>    </td>
+            <td><b>{{ total }}</b></td>
+        </tr>
+    </table>
+    <hr>
+</div>
+</body>
+</html>

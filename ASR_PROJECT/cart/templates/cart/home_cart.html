@@ -43,9 +43,14 @@
         </tr>
         </tfoot>
     </table>
-    <a href="" class="btn btn-primary">Checkout</a>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" name="generar_factura" class="btn btn-primary">Generar factura</button>
+    </form>
 </div>
 {% else %}
-<p>Your shopping cart is empty.</p>
+<div class="container">
+    <p>Tu carrito de compras está vacío</p>
+</div>
 {% endif %}
 {% endblock %}

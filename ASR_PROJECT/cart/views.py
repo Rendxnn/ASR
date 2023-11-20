@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from cart.models import Cart
 from store.models import Ladrillo
+from . import utils
+import os
+from django.http import HttpResponse
+from django.conf import settings
 
 
 def home_cart(request):
@@ -11,6 +15,17 @@ def home_cart(request):
         return redirect('home')
     cart_items = Cart.objects.all().filter(user=request.user)
     total_price = sum(pedido.product.precio for pedido in cart_items)
+    if 'generar_factura' in request.POST:
+        utils.generate_receipt(cart_items, total_price, request.user.username)
+        file_path = os.path.join(settings.MEDIA_ROOT, f'receipts/receipt{request.user.username.__str__()}.pdf')
+        print(file_path)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as file:
+                response = HttpResponse(file.read(), content_type='application/octet-stream')
+                response['Content-Disposition'] = 'attachment; filename=' + os.path.basename(file_path)
+                return response
+        else:
+            return HttpResponse('El archivo no existe.')
     return render(request, 'cart/home_cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
 
@@ -36,7 +51,7 @@ def remove_from_cart(request, cart_item_id):
 
 
 def cart_detail(request):
-    cart_items = Cart.objects.all()
+    cart_items = Cart.objects.all().filter(user=request.user)
     total_price = sum(item.quantity * item.product.precio for item in cart_items)
 
     context = {
