@@ -1,5 +1,5 @@
 {% extends 'store/base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container">
     <h1 class="my-4">¡Bienvenido a Alfarera Santa Rita!</h1>
@@ -12,8 +12,7 @@
             {% for producto in ladrillos %}
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
-                    <img src="https://colgres.com.co/wp-content/uploads/2022/08/ladrillo-multiperforado-4.png"
-                         class="card-img-top" alt="{{ producto.nombre }}" style="height: 200px; object-fit: cover;">
+                    <img class="card-img-top" src="https://www.vallegres.com/wp-content/uploads/2016/04/Ladrillo-Limpio-No_10_a.jpg" alt="{{ producto.nombre }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ producto.nombre }}</h5>
                         <p class="card-text">{{ producto.descripcion }}</p>
