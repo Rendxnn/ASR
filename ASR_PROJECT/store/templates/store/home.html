@@ -12,7 +12,7 @@
             {% for producto in ladrillos %}
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
-                    <img class="card-img-top" src="https://www.vallegres.com/wp-content/uploads/2016/04/Ladrillo-Limpio-No_10_a.jpg" alt="{{ producto.nombre }}">
+                    <img class="card-img-top" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="height: 400px; width: 400px;">
                     <div class="card-body">
                         <h5 class="card-title">{{ producto.nombre }}</h5>
                         <p class="card-text">{{ producto.descripcion }}</p>
